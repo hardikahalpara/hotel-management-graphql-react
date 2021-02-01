@@ -9,3 +9,4 @@ export { default as CREATE_DESTINATION } from "./createDestination";
 export { default as UPDATE_DESTINATION } from "./updateDestination";
 export { default as DELETE_HOTEL } from "./deleteHotel";
 export { default as DELETE_DESTINATION } from "./deleteDestination";
+export { default as GET_ALL_ASSETS } from "./getAllAssets";

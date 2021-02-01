@@ -5,9 +5,15 @@ const CREATE_DESTINATION = gql`
     $name: String!
     $description: String
     $location: String
+    $imageId: ID
   ) {
     createDestination(
-      data: { name: $name, description: $description, location: $location }
+      data: {
+        name: $name
+        description: $description
+        location: $location
+        image: { connect: { id: $imageId } }
+      }
     ) {
       name
       location
