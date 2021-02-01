@@ -1,18 +1,19 @@
 import React from "react";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
+import { DESTINATIONS, HOME, HOTELS } from "../../routes";
 
 function Navbar() {
   return (
     <Menu theme="dark" mode="horizontal">
       <Menu.Item key="1">
-        <Link to="/">Home</Link>
+        <Link to={HOME}>Home</Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to="/hotels">Hotels</Link>
+        <Link to={HOTELS}>Hotels</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to="/destination">Destination</Link>
+        <Link to={DESTINATIONS}>Destination</Link>
       </Menu.Item>
     </Menu>
   );

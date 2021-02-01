@@ -3,3 +3,7 @@ export { default as GET_ALL_HOTELS } from "./getAllHotels";
 export { default as UPDATE_HOTEL } from "./updateHotel";
 export { default as CREATE_HOTEL } from "./createHotel";
 export { default as GET_HOTEL_DETAILS } from "./getHotelDetails";
+export { default as GET_ALL_DESTINATIONS } from "./getAllDestinations";
+export { default as GET_DESTINATION_DETAILS } from "./getDestinationDetails";
+export { default as CREATE_DESTINATION } from "./createDestination";
+export { default as UPDATE_DESTINATION } from "./updateDestination";

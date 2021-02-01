@@ -3,3 +3,7 @@ export const HOTELS = "/hotels";
 export const CREATEHOTEL = "/hotels/create";
 export const HOTELDETAILS = "/hotels/:id";
 export const EDITHOTEL = "/hotels/:id/edit";
+export const DESTINATIONS = "/destinations";
+export const DESTINATIONDETAILS = "/destinations/:id";
+export const CREATEDESTINATION = "/destinations/create";
+export const EDITDESTINATION = "/destinations/:id/edit";
