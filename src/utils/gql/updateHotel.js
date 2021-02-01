@@ -9,6 +9,7 @@ const UPDATE_HOTEL = gql`
     $phone: String
     $website: String
     $amenities: HotelUpdateamenitiesInput
+    $photos: [AssetWhereUniqueInput!]
   ) {
     updateHotel(
       where: { id: $id }
@@ -19,6 +20,7 @@ const UPDATE_HOTEL = gql`
         rooms: $rooms
         phone: $phone
         website: $website
+        photos: { connect: $photos }
       }
     ) {
       name

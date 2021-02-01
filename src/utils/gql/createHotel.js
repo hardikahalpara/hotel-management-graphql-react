@@ -8,6 +8,7 @@ const CREATE_HOTEL = gql`
     $phone: String
     $website: String
     $amenities: HotelCreateamenitiesInput
+    $photos: [AssetWhereUniqueInput!]
   ) {
     createHotel(
       data: {
@@ -17,10 +18,14 @@ const CREATE_HOTEL = gql`
         rooms: $rooms
         phone: $phone
         website: $website
+        photos: { connect: $photos }
       }
     ) {
       name
       amenities
+      photos {
+        url
+      }
     }
   }
 `;

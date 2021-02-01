@@ -2,6 +2,10 @@ import React from "react";
 import { Button, Form, Input, InputNumber, message, Select } from "antd";
 import { useHistory } from "react-router-dom";
 import { HOTELS } from "../../routes";
+import { GET_ALL_ASSETS } from "../../utils/gql";
+import { useQuery } from "@apollo/client";
+import Loader from "../Common/Loader";
+import Page404 from "../Common/Page404";
 const { Item } = Form;
 const layout = {
   labelCol: { span: 8 },
@@ -12,11 +16,22 @@ const tailLayout = {
 };
 const { Option } = Select;
 
-function HotelForm({ mutation, id, data }) {
-  console.log(id);
+function HotelForm({ mutation, id, data: formData }) {
+  const { loading, error, data } = useQuery(GET_ALL_ASSETS);
   const history = useHistory();
+
+  if (loading) return <Loader />;
+  if (error) return <Page404 />;
+  const { assets } = data;
+  console.log(assets);
   function handleSubmit(e) {
-    const { name, description, rooms, phone, website, amenities } = e;
+    const { name, description, rooms, phone, website, amenities, photoIds } = e;
+    const photos = [];
+    if (photoIds) {
+      photoIds.forEach((photo) => {
+        photos.push({ id: photo });
+      });
+    }
     mutation({
       variables: {
         id: id || "",
@@ -26,6 +41,7 @@ function HotelForm({ mutation, id, data }) {
         phone: phone || "",
         website: website || "",
         amenities: { set: amenities || [] },
+        photos,
       },
     })
       .then(() => {
@@ -38,7 +54,7 @@ function HotelForm({ mutation, id, data }) {
     <Form
       {...layout}
       onFinish={handleSubmit}
-      initialValues={data}
+      initialValues={formData}
       name="create-hotel"
     >
       <Item
@@ -67,6 +83,22 @@ function HotelForm({ mutation, id, data }) {
       <Item label="Amenities" name="amenities">
         <Select mode="tags" style={{ width: "100%" }}>
           <Option value="gym">Gym</Option>
+        </Select>
+      </Item>
+      <Item label="Photos" name="photoIds">
+        <Select
+          mode="multiple"
+          allowClear
+          style={{ width: "100%" }}
+          placeholder="Please select"
+        >
+          {assets.map((asset, index) => {
+            return (
+              <Select.Option key={index} value={asset.id}>
+                {asset.url}
+              </Select.Option>
+            );
+          })}
         </Select>
       </Item>
 
