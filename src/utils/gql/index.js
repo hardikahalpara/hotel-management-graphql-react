@@ -7,3 +7,5 @@ export { default as GET_ALL_DESTINATIONS } from "./getAllDestinations";
 export { default as GET_DESTINATION_DETAILS } from "./getDestinationDetails";
 export { default as CREATE_DESTINATION } from "./createDestination";
 export { default as UPDATE_DESTINATION } from "./updateDestination";
+export { default as DELETE_HOTEL } from "./deleteHotel";
+export { default as DELETE_DESTINATION } from "./deleteDestination";

@@ -1,11 +1,12 @@
-import { useQuery } from "@apollo/client";
-import { Card, Carousel, Descriptions, Tag } from "antd";
+import { useMutation, useQuery } from "@apollo/client";
+import { Card, Descriptions, message } from "antd";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Loader from "../Common/Loader";
 import Page404 from "../Common/Page404";
-import { EditOutlined } from "@ant-design/icons";
-import { GET_DESTINATION_DETAILS } from "../../utils/gql";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { DELETE_DESTINATION, GET_DESTINATION_DETAILS } from "../../utils/gql";
+import { DESTINATIONS } from "../../routes";
 
 function DestinationDetails() {
   const { id } = useParams();
@@ -13,6 +14,8 @@ function DestinationDetails() {
   const { loading, error, data } = useQuery(GET_DESTINATION_DETAILS, {
     variables: { id },
   });
+  const history = useHistory();
+  const [deleteDestination] = useMutation(DELETE_DESTINATION);
   if (loading) return <Loader />;
   if (error) return <Page404 />;
   const { destination } = data;
@@ -23,7 +26,7 @@ function DestinationDetails() {
         hoverable
         cover={
           <img
-            alt="Destination photo"
+            alt="Destination"
             src={destination.image ? destination.image.url : ""}
           ></img>
         }
@@ -31,6 +34,19 @@ function DestinationDetails() {
           <Link to={`/destinations/${id}/edit`}>
             <EditOutlined key="edit" />
           </Link>,
+          <DeleteOutlined
+            key="delete"
+            onClick={() => {
+              deleteDestination({
+                variables: {
+                  id,
+                },
+              }).then(() => {
+                message.success("Deleted successfully");
+                history.push(DESTINATIONS);
+              });
+            }}
+          />,
         ]}
       >
         <Descriptions

@@ -1,11 +1,13 @@
-import { useQuery } from "@apollo/client";
-import { Card, Carousel, Descriptions, Tag } from "antd";
+import { useMutation, useQuery } from "@apollo/client";
+import { Card, Carousel, Descriptions, message, Tag } from "antd";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import GET_HOTEL_DETAILS from "../../utils/gql/getHotelDetails";
 import Loader from "../Common/Loader";
 import Page404 from "../Common/Page404";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { DELETE_HOTEL } from "../../utils/gql";
+import { HOTELS } from "../../routes";
 
 function HotelDetails() {
   const { id } = useParams();
@@ -13,6 +15,8 @@ function HotelDetails() {
   const { loading, error, data } = useQuery(GET_HOTEL_DETAILS, {
     variables: { id },
   });
+  const history = useHistory();
+  const [deleteHotel] = useMutation(DELETE_HOTEL);
   if (loading) return <Loader />;
   if (error) return <Page404 />;
   const { hotel } = data;
@@ -29,9 +33,22 @@ function HotelDetails() {
           </Carousel>
         }
         actions={[
-          <Link to={`/hotels/${id}/edit`}>
-            <EditOutlined key="edit" />
+          <Link to={`/hotels/${id}/edit`} key="edit">
+            <EditOutlined />
           </Link>,
+          <DeleteOutlined
+            key="delete"
+            onClick={() => {
+              deleteHotel({
+                variables: {
+                  id,
+                },
+              }).then(() => {
+                message.success("Deleted successfully");
+                history.push(HOTELS);
+              });
+            }}
+          />,
         ]}
       >
         {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
