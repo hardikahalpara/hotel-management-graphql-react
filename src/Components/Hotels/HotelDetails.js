@@ -1,10 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { Card, Carousel, Descriptions, Tag } from "antd";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import GET_HOTEL_DETAILS from "../../utils/gql/getHotelDetails";
 import Loader from "../Common/Loader";
 import Page404 from "../Common/Page404";
+import { EditOutlined } from "@ant-design/icons";
 
 function HotelDetails() {
   const { id } = useParams();
@@ -27,6 +28,11 @@ function HotelDetails() {
             })}
           </Carousel>
         }
+        actions={[
+          <Link to={`/hotels/${id}/edit`}>
+            <EditOutlined key="edit" />
+          </Link>,
+        ]}
       >
         {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
         <Descriptions
