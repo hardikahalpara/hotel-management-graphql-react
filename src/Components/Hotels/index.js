@@ -28,21 +28,23 @@ function Hotels() {
           const { name, description, photos } = hotel;
           return (
             <Col key={index} className="gutter-row" sm={12} md={8} lg={6}>
-              <Card
-                style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}
-                cover={
-                  <img
-                    style={{ height: 200 }}
-                    alt="example"
-                    src={photos && photos.length ? photos[0].url : ""}
+              <Link to={`/hotels/${hotel.id}`}>
+                <Card
+                  style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}
+                  cover={
+                    <img
+                      style={{ height: 200 }}
+                      alt="example"
+                      src={photos && photos.length ? photos[0].url : ""}
+                    />
+                  }
+                >
+                  <Meta
+                    title={name}
+                    description={<Paragraph ellipsis>{description}</Paragraph>}
                   />
-                }
-              >
-                <Meta
-                  title={name}
-                  description={<Paragraph ellipsis>{description}</Paragraph>}
-                />
-              </Card>
+                </Card>
+              </Link>
             </Col>
           );
         })}
