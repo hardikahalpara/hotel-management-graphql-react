@@ -5,6 +5,9 @@ import Loader from "../Common/Loader";
 import Page404 from "../Common/Page404";
 import CustomLayout from "../Layout";
 import { Row, Col, Card, Typography, Button, Affix } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { CREATEHOTEL } from "../../routes";
 const { Meta } = Card;
 
 function Hotels() {
@@ -61,8 +64,16 @@ function Hotels() {
         Next
       </Button>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Affix offsetBottom={10}>
-          <Button type="primary">Affix bottom</Button>
+        <Affix offsetBottom={30}>
+          <Link to={CREATEHOTEL}>
+            <Button
+              size="large"
+              type="primary"
+              shape="circle"
+              icon={<PlusOutlined />}
+            />
+          </Link>
+          {/* <Button type="primary">Affix bottom</Button> */}
         </Affix>
       </div>
     </CustomLayout>
